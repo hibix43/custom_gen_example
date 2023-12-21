@@ -1,0 +1,31 @@
+targets:
+  $default:
+   builders:
+    # 参照するビルダーとアノテーションを指定する
+    generators|annotation:
+     enabled: true
+
+builders:
+  generators:
+   # ビルダーのパッケージ名を指定する
+   target: ":generators"
+   # ビルダーのパスを指定する
+   import: "package:generators/generators.dart"
+   # ビルダーの名前を指定する
+   builder_factories: ["generateJsonMethods"]
+   # {input_extension: [output_extension]}
+   build_extensions: {".dart": [".g.dart"]}
+   # 特別なビルダーを自動的に適用するかどうかを指定する
+   # none: 自動的に適用しない
+   # builders セクションで手動で設定する
+   # もしくは build_runner の --build-filter オプションで指定する
+   # dependents: build.yaml を含むパッケージに依存するパッケージに自動的に適用する
+   # 他のパッケージがこのパッケージに依存している場合、指定したビルダーをそのパッケージにも適用する
+   # all_packages: 依存関係に関わらず全てのパッケージにビルダーを自動的に適用する
+   auto_apply: dependents
+   # コード生成によって生成されたファイルを置く場所を指定する
+   # source: コード生成によって生成されたファイルを元のソースコードと同じ場所に置く
+   # cache: コード生成によって生成されたファイルをキャッシュディレクトリに置く
+   # cache はパフォーマンスを向上させるために使われる
+   build_to: cache
+   applies_builders: ["source_gen|combining_builder"]
