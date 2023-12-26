@@ -47,4 +47,33 @@ class JsonGenerator extends GeneratorForAnnotation<CustomAnnotation> {
     buffer.writeln(');');
     return buffer.toString();
   }
+
+  /// Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
+  /// 'name': instance.name,
+  /// 'price': instance.price,
+  /// };
+  String generateToJsonMethod(ModelVisitor visitor) {
+    // className を取得する
+    String className = visitor.className;
+
+    // 生成するコードを StringBuffer に格納する
+    final buffer = StringBuffer();
+
+    // コードの先頭にコメントを追加する
+    buffer.writeln('// To Json Method');
+    // シグネチャを追加する
+    buffer.writeln(
+        'Map<String, dynamic> _\$${className}ToJson($className instance) => ');
+    // コンストラクタを始める
+    buffer.writeln('<String, dynamic>{');
+    // フィールドを追加する
+    for (var i = 0; i < visitor.fields.length; i++) {
+      String filedName = visitor.fields.keys.elementAt(i);
+
+      buffer.writeln("'$filedName': instance.$filedName,");
+    }
+    // コンストラクタを閉じる
+    buffer.writeln('};');
+    return buffer.toString();
+  }
 }
