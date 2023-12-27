@@ -76,4 +76,50 @@ class JsonGenerator extends GeneratorForAnnotation<CustomAnnotation> {
     buffer.writeln('};');
     return buffer.toString();
   }
+
+  /// Extension $ProductExtension on Product {
+  /// Product copyWith({
+  /// String? name,
+  /// double? price,
+  /// }) {
+  ///  return Product(
+  ///    name: name ?? this.name,
+  ///    price: price ?? this.price,
+  ///   );
+  /// }
+  String generateCopyWithMethod(ModelVisitor visitor) {
+    // className を取得する
+    String className = visitor.className;
+
+    // 生成するコードを StringBuffer に格納する
+    final buffer = StringBuffer();
+
+    // コードの先頭にコメントを追加する
+    buffer.writeln(
+        '// Extension for a $className class to provide copyWith method');
+    // シグネチャを追加する
+    buffer.writeln('extension \$${className}Extension on $className {');
+    // メソッドを始める
+    buffer.writeln('$className copyWith({');
+    // 引数を追加する
+    for (var i = 0; i < visitor.fields.length; i++) {
+      String dataType =
+          visitor.fields.values.elementAt(i).toString().replaceAll('?', '');
+      String filedName = visitor.fields.keys.elementAt(i);
+      buffer.writeln('$dataType? $filedName,');
+    }
+    buffer.writeln('}) {');
+    buffer.writeln('return $className(');
+    // フィールドを追加する
+    for (var i = 0; i < visitor.fields.length; i++) {
+      String filedName = visitor.fields.keys.elementAt(i);
+
+      buffer.writeln('$filedName: $filedName ?? this.$filedName,');
+    }
+    buffer.writeln(');');
+    buffer.writeln('}');
+    // メソッドを閉じる
+    buffer.writeln('}');
+    return buffer.toString();
+  }
 }
