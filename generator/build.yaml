@@ -2,15 +2,15 @@ targets:
   $default:
    builders:
     # 参照するビルダーとアノテーションを指定する
-    generators|annotation:
+    generator|annotation:
      enabled: true
 
 builders:
-  generators:
+  generator:
    # ビルダーのパッケージ名を指定する
-   target: ":generators"
+   target: ":generator"
    # ビルダーのパスを指定する
-   import: "package:generators/generators.dart"
+   import: "package:generator/generator.dart"
    # ビルダーの名前を指定する
    builder_factories: ["generateJsonMethods"]
    # {input_extension: [output_extension]}
