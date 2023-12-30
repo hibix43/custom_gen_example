@@ -1,9 +1,9 @@
 targets:
   $default:
-   builders:
-    # 参照するビルダーとアノテーションを指定する
-    generators|annotations:
-     enabled: true
+    builders:
+      # 参照するビルダーとアノテーションを指定する
+      generators|annotations:
+        enabled: true
 
 builders:
   generators:
