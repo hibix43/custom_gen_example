@@ -14,7 +14,7 @@ builders:
    # ビルダーの名前を指定する
    builder_factories: ["generateJsonMethods"]
    # {input_extension: [output_extension]}
-   build_extensions: { ".dart": [".g.dart"] }
+   build_extensions: { ".dart": [".g.part"] }
    # 特別なビルダーを自動的に適用するかどうかを指定する
    # none: 自動的に適用しない
    # builders セクションで手動で設定する
