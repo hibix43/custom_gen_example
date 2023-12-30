@@ -1,9 +1,9 @@
 /// build.yaml の builder_factories に指定するトップレベルの関数
 /// build_runner は build.yaml をチェックして、この関数を呼び出す
-library generator;
+library generators;
 
 import 'package:build/build.dart';
-import 'package:generator/src/json_generator.dart';
+import 'package:generators/src/json_generator.dart';
 import 'package:source_gen/source_gen.dart';
 
 Builder generateJsonMethods(BuilderOptions options) {

@@ -1,4 +1,4 @@
-name: generator
+name: generators
 description: "A new Flutter package project."
 version: 0.0.1
 publish_to: none
@@ -14,8 +14,8 @@ dependencies:
   build:
   source_gen:
 
-  annotation:
-    path: ../annotation/
+  annotations:
+    path: ../annotations/
 
 dev_dependencies:
   flutter_test:
