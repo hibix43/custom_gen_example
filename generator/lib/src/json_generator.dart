@@ -1,5 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
-import 'package:annotation/annotations.dart';
+import 'package:annotation/annotation.dart';
 import 'package:build/src/builder/build_step.dart';
 import 'package:generator/src/model_visitor.dart';
 import 'package:source_gen/source_gen.dart';
@@ -12,10 +12,26 @@ class JsonGenerator extends GeneratorForAnnotation<CustomAnnotation> {
   // この場合は Element はクラスになる。それ以外のパラメータは使用しない
   // 生成されたコードを示す String を返す
   @override
-  generateForAnnotatedElement(
-      Element element, ConstantReader annotation, BuildStep buildStep) {
+  String generateForAnnotatedElement(
+    Element element,
+    ConstantReader annotation,
+    BuildStep buildStep,
+  ) {
     final visitor = ModelVisitor();
     element.visitChildren(visitor);
+
+    final buffer = StringBuffer();
+
+    String generatedFromJson = generateFromJsonMethod(visitor);
+    buffer.writeln(generatedFromJson);
+
+    String generatedToJson = generateToJsonMethod(visitor);
+    buffer.writeln(generatedToJson);
+
+    String generatedCopyWith = generateCopyWithMethod(visitor);
+    buffer.writeln(generatedCopyWith);
+
+    return buffer.toString();
   }
 
   /// Product _$ProductFromJson(Map<String, dynamic> json) => Product(
